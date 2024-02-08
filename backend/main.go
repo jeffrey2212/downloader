@@ -6,10 +6,9 @@ import (
     "log"
     "net"
     "net/http"
-    "os"
 
     "google.golang.org/grpc"
-    pb "model_downloader/model_downloader"
+    pb "github.com/jeffrey2212/downloader/backend/model_downloader"
 )
 
 type server struct {

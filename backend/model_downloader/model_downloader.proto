@@ -1,7 +1,7 @@
  syntax = "proto3";
 
 package modeldownloader;
-option go_package = "github.com/jeffrey2212/downloader-backend";
+option go_package = "github.com/jeffrey2212/downloader/backend/model_downloader";
 
 import "google/protobuf/timestamp.proto";
 

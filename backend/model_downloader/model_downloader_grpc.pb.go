@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v4.25.2
-// source: model_downloader.proto
+// source: model_downloader/model_downloader.proto
 
-package downloader_backend
+package model_downloader
 
 import (
 	context "context"
@@ -101,5 +101,5 @@ var ModelDownloader_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "model_downloader.proto",
+	Metadata: "model_downloader/model_downloader.proto",
 }
