@@ -1,4 +1,4 @@
-module downloader-backend
+module github.com/jeffrey2212/downloader/backend
 
 go 1.22.0
 
