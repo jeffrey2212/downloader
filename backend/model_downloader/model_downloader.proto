@@ -1,0 +1,99 @@
+ syntax = "proto3";
+
+package modeldownloader;
+option go_package = "github.com/jeffrey2212/downloader-backend";
+
+import "google/protobuf/timestamp.proto";
+
+// Enum definitions for model types and modes
+enum ModelType {
+  CHECKPOINT = 0;
+  TEXTUAL_INVERSION = 1;
+  HYPERNETWORK = 2;
+  AESTHETIC_GRADIENT = 3;
+  LORA = 4;
+  CONTROLNET = 5;
+  POSES = 6;
+}
+
+enum ModelMode {
+  ARCHIVED = 0;
+  TAKEN_DOWN = 1;
+}
+
+enum FpType {
+  FP16 = 0;
+  FP32 = 1;
+}
+
+enum ModelSize {
+  FULL = 0;
+  PRUNED = 1;
+}
+
+enum ModelFormat {
+  SAFE_TENSOR = 0;
+  PICKLE_TENSOR = 1;
+  OTHER = 2;
+}
+
+// Message definitions for nested objects
+message ModelInfo {
+  string name = 1;
+  ModelType type = 2;
+  bool nsfw = 3;
+  bool poi = 4;
+  ModelMode mode = 5;
+}
+
+message FileInfo {
+  int32 sizeKb = 1;
+  string pickleScanResult = 2;
+  string virusScanResult = 3;
+  google.protobuf.Timestamp scannedAt = 4;
+  FpType fp = 5;
+  ModelSize size = 6;
+  ModelFormat format = 7;
+}
+
+message StatsInfo {
+  int32 downloadCount = 1;
+  int32 ratingCount = 2;
+  double rating = 3;
+}
+
+message ImageInfo {
+  string url = 1;
+  string nsfw = 2;
+  int32 width = 3;
+  int32 height = 4;
+  string hash = 5;
+  // Assuming meta is a simple string or JSON string for simplicity
+  string meta = 6;
+}
+
+// The service method's response message
+message DownloadResponse {
+  int32 id = 1;
+  string name = 2;
+  string description = 3; 
+  ModelInfo model = 4;
+  int32 modelId = 5;
+  google.protobuf.Timestamp createdAt = 6;
+  string downloadUrl = 7;
+  repeated string trainedWords = 8;
+  repeated FileInfo files = 9;
+  StatsInfo stats = 10;
+  repeated ImageInfo images = 11;
+}
+
+// The gRPC service definition
+service ModelDownloader {
+  rpc DownloadModel (DownloadRequest) returns (DownloadResponse) {}
+}
+
+// The service method's request message
+message DownloadRequest {
+  string modelVersionId = 1;
+}
+ 
